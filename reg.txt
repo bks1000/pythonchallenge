@@ -1,0 +1,15 @@
+
+Python Version 2.7 required which was not found in the registry 问题解决
+
+今天在安装numpy时，出现了Python Version 2.7 required which was not found in the registry错误，解决方案如下。
+ 
+Python的一些第三方库只到注册表的HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Python\PythonCore\2.7\InstallPath路径下寻找Python。
+但是装好的64位Python在HKEY_LOCAL_MACHINE\SOFTWARE\Python\PythonCore\2.7\InstallPath路径下建立Python的信息。
+所以，在cmd输入regedit然后将HKEY_LOCAL_MACHINE\SOFTWARE\Python\PythonCore\2.7\InstallPath路径下的值，
+复制到HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Python\PythonCore\2.7\InstallPath路径下，当然没有路径的话一定要新建起来。
+然后就可以安装了。
+本解决方案适用于安装numpy，SetupTools等只提供了32位安装包的库。
+
+P.S
+Python的功能很大程度上取决于第三方库，但是很多开发这并不喜欢提供64位版本。
+上面方法只是个参考，其实最靠谱的解决方案1、Python和第三方库都装成32位；2、把第三方库文件下载下来，重新编译。
